@@ -36,11 +36,17 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        /* Protection contre le scroll horizontal (très important sur mobile) */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             background-color: var(--c-white);
             color: var(--c-taupe);
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
             font-size: 16px;
             line-height: 1.6;
         }
@@ -84,8 +90,8 @@
         
         /* État du logo quand le burger menu est ouvert */
         body.menu-open .dynamic-logo {
-            top: 24px !important; /* Place exactement au niveau du header */
-            font-size: clamp(26px, 4vw, 34px) !important; /* Taille miniature */
+            top: 24px !important;
+            font-size: clamp(26px, 6vw, 34px) !important;
             transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
@@ -105,45 +111,36 @@
             transition: height 0.45s ease;
         }
 
-        /* 2. Le calque invisible qui gère le flou dégradé parfait */
+        /* Le calque invisible qui gère le flou dégradé parfait */
         header::before {
-           content: '';
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            
-            /* LA MAGIE EST ICI : Le calque fait 200% de la taille du header */
             height: 200%; 
-            
             z-index: -1; 
             pointer-events: none; 
-            
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            
-            /* Le masque s'étale sur toute cette grande hauteur, le flou meurt bien avant d'être coupé */
             -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
         }
         
-        /* 3. Au scroll, on réduit juste la hauteur */
+        /* Au scroll, on réduit juste la hauteur */
         header.is-scrolled {
             height: 70px;
         }
         
-        /* 4. Quand le menu mobile est ouvert, on désactive le calque flouté */
+        /* Quand le menu mobile est ouvert, on désactive le calque flouté */
         body.menu-open header::before {
             display: none !important;
         }  
-        /* Annule le masque quand le menu mobile s'ouvre */
         body.menu-open header {
             background: transparent !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             box-shadow: none !important;
-            -webkit-mask-image: none !important;
-            mask-image: none !important;
         }
         
         .header-side { width: 40%; }
@@ -154,7 +151,6 @@
             gap: 2rem;
             list-style: none;
             transform: translateY(-8px);
-
         }
         nav a {
             text-decoration: none;
@@ -196,9 +192,9 @@
             position: absolute;
             left: 8px;
             width: 28px;
-            height: 1.5px;
+            height: 2px; /* Un peu plus épais pour être plus cliquable/visible */
             background: var(--c-taupe);
-            transition: transform 0.35s ease, top 0.35s ease;
+            transition: transform 0.35s ease, top 0.35s ease, background 0.3s ease;
             transform-origin: center;
         }
         .menu-toggle span:first-child { top: 16px; }
@@ -238,7 +234,7 @@
         .mobile-menu-inner {
             width: min(86vw, 520px);
             text-align: center;
-            padding-top: 0; /* On retire le padding massif car le logo est remonté ! */
+            padding-top: 5vh; /* Ajusté pour éviter de taper dans le logo en haut */
         }
         .mobile-menu-footer {
             display: block;
@@ -246,22 +242,22 @@
             text-transform: uppercase;
             letter-spacing: 0.2em;
             color: var(--c-gold);
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
         .mobile-menu nav {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4rem; /* Beaucoup plus d'espace entre les liens */
+            gap: 2.5rem; /* Ajusté pour que le menu rentre sur un iPhone */
         }
         .mobile-menu nav a {
-            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             font-weight: 400;
             letter-spacing: 0.15em;
             padding: 5px 12px;
         }
 
-        /* --- Hero Section Harmonisé --- */
+        /* --- Hero Section --- */
         .hero {
             position: relative;
             height: 100vh;
@@ -273,7 +269,7 @@
             padding: 0;
             overflow: hidden;
             background-color: var(--c-white);
-            margin-bottom: 80px;
+            margin-bottom: 40px; /* Réduit pour ne pas créer un vide béant */
         }
         
         .hero-arch-bg {
@@ -360,7 +356,7 @@
         }
 
         /* Presentation */
-        .presentation-section { padding-top: clamp(105px, 11vw, 300px); }
+        .presentation-section { padding-top: clamp(80px, 11vw, 150px); }
         .presentation-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -371,27 +367,28 @@
             position: relative;
             padding: 1.5rem;
         }
+        
         .presentation-arch {
-            height: 70vh;
+            width: 100%;
             aspect-ratio: 3/4;
             background-color: var(--c-beige);
-            top:-50px;
             border-radius: 200px 200px 0 0;
-            /* overflow: hidden; a été SUPPRIMÉ pour laisser l'image sortir */
             position: relative;
             box-shadow: 0 20px 40px rgba(111, 90, 87, 0.1);
         }
 
         .presentation-arch img {
             position: absolute;
-            bottom: 0; /* L'image s'aligne en bas de l'arche */
-            left: -100px; /* L'image déborde un peu sur la gauche */
-            width: 160%; /* L'image est plus grande que l'arche */
-            height: 115%; /* Elle dépasse aussi en haut */
-            object-fit: contain; /* Garantit que ton PNG ne soit pas déformé */
+            bottom: 0; 
+            /* Remplacement des px en dur par des % fluides pour s'adapter à tous les écrans */
+            left: -15%; 
+            width: 130%; 
+            height: 115%; 
+            object-fit: contain; 
             z-index: 2;
-            transform: rotate(270deg); /* J'ai déplacé ta rotation ici pour que ce soit propre */
+            transform: rotate(270deg); 
         }
+
         .presentation-content h2 {
             font-size: 3rem;
             margin-bottom: 1.5rem;
@@ -400,7 +397,7 @@
         .presentation-content h2::before {
             content: 'À propos';
             position: absolute;
-            top: -80px;
+            top: -60px; /* Ajusté pour éviter de collisionner avec l'image */
             left: 0;
             font-family: 'Mrs Saint Delafield', cursive;
             font-size: 4rem;
@@ -565,7 +562,7 @@
             filter: grayscale(20%) sepia(20%);
         }
 
-        /* --- Formulaire de Contact Refait --- */
+        /* --- Formulaire de Contact --- */
         .contact-section {
             background-color: var(--c-white);
             text-align: center;
@@ -644,7 +641,7 @@
             color: var(--c-gold);
         }
 
-        /* --- Footer Minimaliste --- */
+        /* --- Footer --- */
         footer {
             background: var(--c-white);
             color: var(--c-taupe);
@@ -691,7 +688,7 @@
             .contact-arch { border-radius: 180px 180px 0 0; padding: 4rem 2rem; }
         }
 
-        /* Responsive Mobile */
+        /* Responsive Mobile Strict */
         @media (max-width: 600px) {
             body { font-size: 14px; }
             
@@ -705,9 +702,27 @@
 
             section { padding: 78px 0; }
             .container { width: calc(100% - 40px); }
-            .presentation-content h2 { font-size: 2.7rem; }
-            .section-title { font-size: 2.8rem; margin-bottom: 2.7rem; }
-            .section-title span { font-size: 3.5rem; margin-bottom: -25px; }
+            
+            /* Debug : Titre "À propos" et Image sur téléphone */
+            .presentation-section { padding-top: 80px; }
+            .presentation-arch {
+                width: 100%;
+                height: auto; /* Supprime le 70vh forcé qui cassait tout */
+                aspect-ratio: 3/4;
+            }
+            .presentation-arch img {
+                left: -10%; /* Moins agressif sur mobile */
+                width: 120%;
+                height: 110%;
+            }
+            .presentation-content h2 { font-size: 2.4rem; margin-top: 2rem; }
+            .presentation-content h2::before { 
+                top: -30px; /* Remonte le cursif pour ne pas chevaucher l'image */
+                font-size: 3rem; 
+            }
+            
+            .section-title { font-size: 2.5rem; margin-bottom: 2.7rem; }
+            .section-title span { font-size: 3rem; margin-bottom: -10px; }
             .cards-grid { grid-template-columns: 1fr; gap: 14px; }
             .service-card { padding: 2.8rem 1.6rem 3rem; border-radius: 120px 120px 0 0; }
             .service-card::before { border-radius: 110px 110px 0 0; }
@@ -785,7 +800,7 @@
         <div class="container presentation-grid">
             <div class="presentation-img-wrapper" id="img-anim">
                 <div class="presentation-arch">
-                   <img style="transform:rotate(270deg);" src="gugu detoure fafafa v3 .png" alt="Augustine à la flûte">
+                   <img src="gugu detoure fafafa v3 .png" alt="Augustine à la flûte">
                 </div>
             </div>
             <div class="presentation-content">
@@ -971,7 +986,6 @@
 
                 const startTop = window.innerHeight * 0.42; 
                 
-                // --- CORRECTION DU CENTRAGE ---
                 const finalHeaderHeight = isMobile ? 66 : 70;
                 const opticalTweak = isMobile ? -16 : -22; 
                 const headerCenter = (finalHeaderHeight / 2) + opticalTweak;
@@ -979,7 +993,7 @@
                 const currentTop = startTop + (headerCenter - startTop) * ease;
                 const currentSize = startSize + (endSize - startSize) * ease;
 
-                // Application des styles (écrasés par CSS si body.menu-open)
+                // Application des styles
                 logo.style.top = `${currentTop}px`;
                 logo.style.fontSize = `${currentSize}px`;
                 
@@ -1000,7 +1014,6 @@
             const open = menuToggle.classList.toggle('open');
             mobileMenu.classList.toggle('open', open);
             
-            // Modifier le header via CSS pour que la croix reste sur fond transparent
             document.body.classList.toggle('menu-open', open);
             
             menuToggle.setAttribute('aria-expanded', String(open));
@@ -1043,7 +1056,7 @@
             }
         });
         
-        // Le texte du hero descend (parallax) et fade out VITE
+        // Le texte du hero descend (parallax) et fade out
         gsap.to(".hero-content", {
             y: 80, 
             opacity: 0,
