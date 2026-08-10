@@ -1,7 +1,381 @@
-.presentation-arch {
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augustine Lejeune - Flûtiste pour mariages & événements</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    
+    <!-- Lenis CSS for smooth scrolling -->
+    <style>
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+    </style>
+
+    <style>
+        /* Variables Chartes Graphiques */
+        :root {
+            --c-pink-dusty: #DFA9A5;
+            --c-pink-light: #F3D9D5;
+            --c-beige: #E9DDD0;
+            --c-taupe: #6F5A57;
+            --c-gold: #C9A66B;
+            --c-white: #FAFAFA;
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--c-white);
+            color: var(--c-taupe);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
+        .font-script {
+            font-family: 'Mrs Saint Delafield', cursive;
+        }
+        .text-gold { color: var(--c-gold); }
+        .text-taupe { color: var(--c-taupe); }
+        
+        /* Layout */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        section {
+            padding: clamp(80px, 9vw, 130px) 0;
+            position: relative;
+        }
+
+        /* Header & Dynamic Logo */
+        .dynamic-logo {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--c-taupe);
+            z-index: 1005; /* Toujours au-dessus de tout */
+            white-space: nowrap;
+            pointer-events: none;
+            text-align: center;
+            line-height: 1;
+            text-shadow: 0 4px 20px rgba(250, 250, 250, 0.4);
+            transition: top 0.05s ease-out, font-size 0.05s ease-out, opacity 0.3s ease;
+        }
+        
+        /* État du logo quand le burger menu est ouvert */
+        body.menu-open .dynamic-logo {
+            top: 24px !important; /* Place exactement au niveau du header */
+            font-size: clamp(26px, 4vw, 34px) !important; /* Taille miniature */
+            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+       header {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 90px;
+            background: transparent;
+            border-bottom: none;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            transition: height 0.45s ease;
+        }
+
+        /* 2. Le calque invisible qui gère le flou dégradé parfait */
+        header::before {
+           content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            
+            /* LA MAGIE EST ICI : Le calque fait 200% de la taille du header */
+            height: 200%; 
+            
+            z-index: -1; 
+            pointer-events: none; 
+            
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            
+            /* Le masque s'étale sur toute cette grande hauteur, le flou meurt bien avant d'être coupé */
+            -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+        }
+        
+        /* 3. Au scroll, on réduit juste la hauteur */
+        header.is-scrolled {
+            height: 70px;
+        }
+        
+        /* 4. Quand le menu mobile est ouvert, on désactive le calque flouté */
+        body.menu-open header::before {
+            display: none !important;
+        }  
+        /* Annule le masque quand le menu mobile s'ouvre */
+        body.menu-open header {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+            -webkit-mask-image: none !important;
+            mask-image: none !important;
+        }
+        
+        .header-side { width: 40%; }
+        .header-right { display: flex; justify-content: flex-end; }
+        .header-side nav ul {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+            transform: translateY(-8px);
+
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--c-taupe);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--c-gold); }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--c-gold);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* Menu Burger & Croix */
+        .menu-toggle {
+            display: none;
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            z-index: 1010;
+        }
+        .menu-toggle span {
+            position: absolute;
+            left: 8px;
+            width: 28px;
+            height: 1.5px;
+            background: var(--c-taupe);
+            transition: transform 0.35s ease, top 0.35s ease;
+            transform-origin: center;
+        }
+        .menu-toggle span:first-child { top: 16px; }
+        .menu-toggle span:last-child { top: 26px; }
+        
+        /* Animation de la Croix parfaite */
+        .menu-toggle.open span:first-child { 
+            top: 21px; 
+            transform: rotate(45deg); 
+        }
+        .menu-toggle.open span:last-child { 
+            top: 21px; 
+            transform: rotate(-45deg); 
+        }
+
+        /* Overlay Menu Mobile */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 999; /* Sous le header pour que la croix reste visible ! */
+            background: rgba(250, 250, 250, 0.98);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-menu.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .mobile-menu-inner {
+            width: min(86vw, 520px);
+            text-align: center;
+            padding-top: 0; /* On retire le padding massif car le logo est remonté ! */
+        }
+        .mobile-menu-footer {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--c-gold);
+            margin-top: 4rem;
+        }
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4rem; /* Beaucoup plus d'espace entre les liens */
+        }
+        .mobile-menu nav a {
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 5px 12px;
+        }
+
+        /* --- Hero Section Harmonisé --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--c-white);
+            margin-bottom: 80px;
+        }
+        
+        .hero-arch-bg {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 38vw;
+            height: 72vh;
+            background: linear-gradient(180deg, var(--c-pink-light) 0%, rgba(250,250,250,0) 90%);
+            border-radius: 40vw 40vw 0 0;
+            z-index: 1;
+        }
+        
+        .hero-arch-outline {
+            position: absolute;
+            bottom: -2%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 41vw;
+            height: 75vh;
+            border: 1px solid var(--c-gold);
+            border-radius: 41vw 41vw 0 0;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            transform: translateY(14vh); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-divider {
+            width: 40px;
+            height: 1px;
+            background-color: var(--c-gold);
+            margin: 0 auto 1.5rem auto;
+            opacity: 0.7;
+        }
+
+        .hero-desc {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            color: var(--c-taupe);
+            opacity: 0.9;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--c-gold), transparent);
+            opacity: 0.7;
+            animation: scrollCue 2s ease-in-out infinite;
+            z-index: 15;
+        }
+        .hero::before {
+            content: 'SCROLL';
+            position: absolute;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: var(--c-taupe);
+            opacity: 0.7;
+            z-index: 15;
+        }
+
+        @keyframes scrollCue {
+            0%, 100% { transform: scaleY(0.5); transform-origin: top; opacity: 0.2; }
+            50% { transform: scaleY(1); transform-origin: top; opacity: 0.8; }
+        }
+
+        /* Presentation */
+        .presentation-section { padding-top: clamp(105px, 11vw, 300px); }
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .presentation-img-wrapper {
+            position: relative;
+            padding: 1.5rem;
+        }
+        .presentation-arch {
+            height: 70vh;
             aspect-ratio: 3/4;
             background-color: var(--c-beige);
+            top:-50px;
             border-radius: 200px 200px 0 0;
             /* overflow: hidden; a été SUPPRIMÉ pour laisser l'image sortir */
             position: relative;
@@ -11,10 +385,736 @@
         .presentation-arch img {
             position: absolute;
             bottom: 0; /* L'image s'aligne en bas de l'arche */
-            left: -15%; /* L'image déborde un peu sur la gauche */
-            width: 130%; /* L'image est plus grande que l'arche */
+            left: -100px; /* L'image déborde un peu sur la gauche */
+            width: 160%; /* L'image est plus grande que l'arche */
             height: 115%; /* Elle dépasse aussi en haut */
             object-fit: contain; /* Garantit que ton PNG ne soit pas déformé */
             z-index: 2;
             transform: rotate(270deg); /* J'ai déplacé ta rotation ici pour que ce soit propre */
         }
+        .presentation-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .presentation-content h2::before {
+            content: 'À propos';
+            position: absolute;
+            top: -80px;
+            left: 0;
+            font-family: 'Mrs Saint Delafield', cursive;
+            font-size: 4rem;
+            color: var(--c-pink-dusty);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .presentation-content p {
+            margin-bottom: 1.5rem;
+            color: var(--c-taupe);
+            opacity: 0.8;
+        }
+
+        /* Prestations */
+        .prestations-section { background-color: var(--c-beige); }
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            line-height: 0.9;
+        }
+        .section-title span {
+            display: block;
+            font-size: 4rem;
+            color: var(--c-pink-dusty);
+            margin-bottom: 0px;
+            opacity: 0.6;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .service-card {
+            background: var(--c-white);
+            padding: 3.5rem 2rem;
+            border-radius: 150px 150px 0 0;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid var(--c-pink-light);
+            border-radius: 140px 140px 0 0;
+            pointer-events: none;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(111, 90, 87, 0.08);
+        }
+        .service-card h3 {
+            font-size: clamp(1.7rem, 3vw, 2.15rem);
+            margin-bottom: 1rem;
+            color: var(--c-gold);
+        }
+        .service-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .service-card::after {
+            content: '↗';
+            position: absolute;
+            right: 24px;
+            top: 24px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--c-pink-dusty);
+            opacity: 0;
+            transform: translate(-5px, 5px);
+            transition: 0.35s ease;
+        }
+        .service-card:hover::after { opacity: 1; transform: none; }
+
+        /* Repertoire */
+        .repertoire-section .container { max-width: 980px; }
+        .repertoire-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 0 auto;
+        }
+        .repertoire-item {
+            border-bottom: 1px solid var(--c-pink-light);
+            padding-bottom: 1.5rem;
+            transition: padding-left 0.35s ease, border-color 0.35s ease;
+        }
+        .repertoire-item:hover {
+            padding-left: 12px;
+            border-color: var(--c-gold);
+        }
+        .repertoire-category {
+            font-size: 2rem;
+            color: var(--c-taupe);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .repertoire-category span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--c-gold);
+            letter-spacing: 2px;
+        }
+        .repertoire-details {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--c-pink-dusty);
+            color: var(--c-white);
+            display: flex;
+            align-items: center;
+        }
+        .gallery-wrapper {
+            display: flex;
+            width: max-content;
+            padding: 0 5vw;
+            gap: 4rem;
+            align-items: center;
+        }
+        .gallery-title {
+            width: 30vw;
+            flex-shrink: 0;
+        }
+        .gallery-title h2 {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        .gallery-title span {
+            font-size: 5rem;
+            color: var(--c-white);
+            opacity: 0.3;
+            display: block;
+            margin-bottom: -20px;
+        }
+        .gallery-item {
+            width: 35vw;
+            max-width: 500px;
+            aspect-ratio: 3/4;
+            border-radius: 200px 200px 0 0;
+            overflow: hidden;
+            flex-shrink: 0;
+            background-color: var(--c-pink-light);
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) sepia(20%);
+        }
+
+        /* --- Formulaire de Contact Refait --- */
+        .contact-section {
+            background-color: var(--c-white);
+            text-align: center;
+            padding: clamp(95px, 11vw, 145px) 0 100px;
+        }
+        .contact-arch {
+            background-color: var(--c-pink-light);
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 300px 300px 0 0;
+            padding: 5.5rem 3rem;
+            position: relative;
+        }
+        .contact-form {
+            max-width: 550px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            text-align: left;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(111, 90, 87, 0.2);
+            padding: 10px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--c-taupe);
+            transition: border-color 0.3s;
+            border-radius: 0;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: var(--c-gold);
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: rgba(111, 90, 87, 0.4);
+            font-weight: 300;
+            font-style: italic;
+        }
+        .submit-btn {
+            background: var(--c-taupe);
+            color: var(--c-white);
+            border: none;
+            padding: 18px 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            align-self: center;
+            margin-top: 1rem;
+        }
+        .submit-btn:hover {
+            background: var(--c-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(201, 166, 107, 0.2);
+        }
+        .contact-direct {
+            margin-top: 3.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .contact-direct a {
+            color: var(--c-taupe);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .contact-direct a:hover {
+            color: var(--c-gold);
+        }
+
+        /* --- Footer Minimaliste --- */
+        footer {
+            background: var(--c-white);
+            color: var(--c-taupe);
+            padding: 2.5rem 5%;
+            text-align: center;
+        }
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-legal a {
+            color: var(--c-taupe);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-legal a:hover {
+            color: var(--c-gold);
+        }
+
+        /* Responsive & Tablettes */
+        @media (max-width: 900px) {
+            header { height: 72px; padding: 0 20px; }
+            header.is-scrolled { height: 66px; }
+            .header-side { display: none; }
+            .menu-toggle { display: block; margin-left: auto; }
+            
+            .hero-arch-bg { width: 75vw; height: 68vh; border-radius: 75vw 75vw 0 0; }
+            .hero-arch-outline { width: 80vw; height: 71vh; border-radius: 80vw 80vw 0 0; }
+            
+            .presentation-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .presentation-img-wrapper { max-width: 620px; margin: 0 auto; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .contact-arch { border-radius: 180px 180px 0 0; padding: 4rem 2rem; }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 600px) {
+            body { font-size: 14px; }
+            
+            .hero-arch-bg { width: 92vw; height: 60vh; border-radius: 92vw 92vw 0 0; bottom: 0; }
+            .hero-arch-outline { width: 96vw; height: 62vh; border-radius: 96vw 96vw 0 0; bottom: 0; }
+            
+            .hero-content { transform: translateY(12vh); }
+            .hero-desc { font-size: 0.7rem; letter-spacing: 0.25em; max-width: 280px; }
+            .hero::before { bottom: 72px; }
+            .hero::after { bottom: 22px; height: 40px; }
+
+            section { padding: 78px 0; }
+            .container { width: calc(100% - 40px); }
+            .presentation-content h2 { font-size: 2.7rem; }
+            .section-title { font-size: 2.8rem; margin-bottom: 2.7rem; }
+            .section-title span { font-size: 3.5rem; margin-bottom: -25px; }
+            .cards-grid { grid-template-columns: 1fr; gap: 14px; }
+            .service-card { padding: 2.8rem 1.6rem 3rem; border-radius: 120px 120px 0 0; }
+            .service-card::before { border-radius: 110px 110px 0 0; }
+            
+            .repertoire-category { font-size: 1.65rem; display: block; }
+            .repertoire-category span { display: block; margin-top: 6px; font-size: 0.65rem; }
+            .repertoire-details { font-size: 0.8rem; }
+            
+            .gallery-section { height: 100svh !important; min-height: 0; overflow-x: auto !important; overflow-y: hidden; display: block; padding: 88px 0 72px; scrollbar-width: none; -webkit-overflow-scrolling: touch;}
+            .gallery-section::-webkit-scrollbar { display: none; }
+            .gallery-wrapper { width: max-content; padding: 0 20px; gap: 1.15rem; align-items: flex-start; }
+            .gallery-title { width: 76vw; padding-top: 1rem; }
+            .gallery-title h2 { font-size: 3rem; }
+            .gallery-title span { font-size: 4rem; }
+            .gallery-item { width: 68vw; max-width: 330px; height: 68vh; min-height: 420px; aspect-ratio: auto; border-radius: 120px 120px 0 0; scroll-snap-align: start; }
+            
+            .contact-arch { width: 100%; border-radius: 130px 130px 0 0; padding: 4.2rem 1.2rem; }
+            .contact-arch .section-title { font-size: 2.7rem; }
+            .submit-btn { padding: 15px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <div class="header-side header-left">
+            <nav aria-label="Navigation principale gauche">
+                <ul>
+                    <li><a href="#repertoire">Répertoire</a></li>
+                    <li><a href="#prestations">Prestations</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="header-side header-right">
+            <nav aria-label="Navigation principale droite">
+                <ul>
+                    <li><a href="#galerie">Galerie</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+            <nav aria-label="Navigation mobile">
+                <a href="#prestations">Prestations</a>
+                <a href="#repertoire">Répertoire</a>
+                <a href="#galerie">Galerie</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <span class="mobile-menu-footer">Flûtiste · Mariages · Événements</span>
+        </div>
+    </div>
+
+    <!-- Le logo dynamique géré par JS/CSS -->
+    <div class="dynamic-logo font-script" id="logo">Augustine Lejeune</div>
+
+    <section class="hero" id="hero">
+        <div class="hero-arch-outline" id="arch-outline"></div>
+        <div class="hero-arch-bg" id="arch-bg"></div>
+        
+        <div class="hero-content">
+            <div class="hero-divider"></div>
+            <p class="hero-desc">Flûtiste évenementielle</p>
+        </div>
+    </section>
+
+    <section class="presentation-section" id="presentation">
+        <div class="container presentation-grid">
+            <div class="presentation-img-wrapper" id="img-anim">
+                <div class="presentation-arch">
+                   <img style="transform:rotate(270deg);" src="gugu detoure fafafa v3 .png" alt="Augustine à la flûte">
+                </div>
+            </div>
+            <div class="presentation-content">
+                <h2>L'élégance en musique</h2>
+                <p>Passionnée par la flûte traversière depuis mon plus jeune âge, j'ai fait de la musique bien plus qu'un métier : un véritable moyen de partager des émotions intenses et d'immortaliser vos instants précieux.</p>
+                <p>Que ce soit pour sublimer une cérémonie de mariage, apporter une touche classique et raffinée à un événement d'entreprise, ou créer une ambiance chaleureuse lors d'une fête privée, je m'adapte à vos envies pour vous offrir une prestation sur-mesure.</p>
+                <p class="font-script text-gold" style="font-size: 2.5rem; margin-top: 1rem;">Augustine</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="prestations-section" id="prestations">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="font-script">Mes services</span>
+                Prestations
+            </h2>
+            <div class="cards-grid">
+                <div class="service-card">
+                    <h3>Mariages</h3>
+                    <p>De l'entrée émouvante de la cérémonie jusqu'au vin d'honneur festif, la flûte traversière accompagne chaque étape de votre union pour la rendre unique.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Événements Privés</h3>
+                    <p>Anniversaires, baptêmes, ou réceptions intimistes. Apportez une note délicate et personnalisée à vos célébrations en famille ou entre amis.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Corporate</h3>
+                    <p>Inaugurations, dîners de gala, séminaires. Une ambiance musicale élégante et discrète pour valoriser l'image de votre entreprise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="repertoire-section" id="repertoire">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="font-script">Extraits musicaux</span>
+                Exemple de Répertoire
+            </h2>
+            <div class="repertoire-list">
+                <div class="repertoire-item">
+                    <div class="repertoire-category">
+                        Classique <span>Élégance intemporelle</span>
+                    </div>
+                    <div class="repertoire-details">
+                        J.S. Bach (Ave Maria, Badinerie) • W.A. Mozart (Concerto en Sol majeur) • C. Debussy (Syrinx) • G. Fauré (Sicilienne, Pavane)
+                    </div>
+                </div>
+                <div class="repertoire-item">
+                    <div class="repertoire-category">
+                        Musique de Film <span>Émotions cinématographiques</span>
+                    </div>
+                    <div class="repertoire-details">
+                        Ennio Morricone (Gabriel's Oboe, Cinema Paradiso) • Hans Zimmer (Gladiator, Interstellar) • Yann Tiersen (Amélie Poulain)
+                    </div>
+                </div>
+                <div class="repertoire-item">
+                    <div class="repertoire-category">
+                        Pop & Variété <span>Touches modernes</span>
+                    </div>
+                    <div class="repertoire-details">
+                        Ed Sheeran (Perfect) • John Legend (All of Me) • Coldplay (Viva La Vida) • Christina Perri (A Thousand Years)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section" id="galerie">
+        <div class="gallery-wrapper">
+            <div class="gallery-title">
+                <span class="font-script">Souvenirs</span>
+                <h2>Événements Passés</h2>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cérémonie de Mariage">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Réception élégante">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Concert en plein air">
+            </div>
+            <div class="gallery-item">
+                <div style="width: 100%; height: 100%; background: var(--c-beige); display:flex; align-items:center; justify-content:center; text-align:center; padding: 2rem;">
+                    <h3 style="color: var(--c-taupe); font-size: 2rem; font-style:italic; font-family: 'Cormorant Garamond', serif;">Et bientôt<br>le vôtre...</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-arch">
+                <h2 class="section-title" style="margin-bottom: 2.5rem;">
+                    <span class="font-script">Rencontrons-nous</span>
+                    Contact
+                </h2>
+                
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <input type="text" placeholder="Votre Nom complet" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Votre Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Type d'événement (Mariage, Cocktail...)">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Votre message ou vos envies musicales..." rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Envoyer la demande</button>
+                </form>
+
+                <div class="contact-direct">
+                    Ou directement par email : <br><a href="mailto:augustine.flute@gmail.com">augustine.flute@gmail.com</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bottom">
+            <span>© 2026 Augustine Lejeune. Tous droits réservés.</span>
+            <div class="footer-legal">
+                <a href="#">Mentions légales</a>
+                <a href="#">CGV</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts: GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scroll Setup (Lenis)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+        gsap.ticker.lagSmoothing(0);
+
+        // --- Animations & Logo dynamique fluide ---
+        const header = document.getElementById('main-header');
+        const logo = document.getElementById('logo');
+
+        let logoRaf = null;
+        function updateIdentity() {
+            if (logoRaf) return;
+            logoRaf = requestAnimationFrame(() => {
+                logoRaf = null;
+
+                const scrollMax = window.innerHeight * 0.55;
+                const progress = Math.min(window.scrollY / scrollMax, 1);
+                
+                const ease = progress < 0.5 
+                    ? 4 * progress * progress * progress 
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                const isMobile = window.innerWidth <= 900;
+                
+                const startSize = isMobile 
+                    ? Math.min(window.innerWidth * 0.16, 75) 
+                    : Math.min(window.innerWidth * 0.09, 130);
+                const endSize = isMobile ? 26 : 34;
+
+                const startTop = window.innerHeight * 0.42; 
+                
+                // --- CORRECTION DU CENTRAGE ---
+                const finalHeaderHeight = isMobile ? 66 : 70;
+                const opticalTweak = isMobile ? -16 : -22; 
+                const headerCenter = (finalHeaderHeight / 2) + opticalTweak;
+                
+                const currentTop = startTop + (headerCenter - startTop) * ease;
+                const currentSize = startSize + (endSize - startSize) * ease;
+
+                // Application des styles (écrasés par CSS si body.menu-open)
+                logo.style.top = `${currentTop}px`;
+                logo.style.fontSize = `${currentSize}px`;
+                
+                // Etat du header
+                header.classList.toggle('is-scrolled', window.scrollY > 50);
+            });
+        }
+
+        updateIdentity();
+        window.addEventListener('scroll', updateIdentity, { passive: true });
+        window.addEventListener('resize', updateIdentity);
+
+        // Menu mobile (Burger)
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            const open = menuToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open', open);
+            
+            // Modifier le header via CSS pour que la croix reste sur fond transparent
+            document.body.classList.toggle('menu-open', open);
+            
+            menuToggle.setAttribute('aria-expanded', String(open));
+            mobileMenu.setAttribute('aria-hidden', String(!open));
+            document.body.style.overflow = open ? 'hidden' : '';
+        });
+
+        // Fermeture propre au clic sur un lien du menu
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.classList.remove('menu-open');
+                
+                menuToggle.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Hero Parallax GSAP
+        gsap.to("#arch-bg", {
+            y: 80,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+        gsap.to("#arch-outline", {
+            y: 40,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+        
+        // Le texte du hero descend (parallax) et fade out VITE
+        gsap.to(".hero-content", {
+            y: 80, 
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "35% top",
+                scrub: true
+            }
+        });
+
+        // Presentation Anim
+        gsap.from("#img-anim", {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#presentation",
+                start: "top 70%"
+            }
+        });
+
+        // Cards Anim
+        gsap.from(".service-card", {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: "#prestations",
+                start: "top 70%"
+            }
+        });
+
+        // Gallery horizontale (Desktop)
+        const galleryWrapper = document.querySelector('.gallery-wrapper');
+        let galleryScroll;
+
+        function setupGallery() {
+            if (galleryScroll) {
+                galleryScroll.kill();
+                galleryScroll = null;
+            }
+
+            const existing = ScrollTrigger.getById('gallery-scroll');
+            if (existing) existing.kill();
+
+            if (window.innerWidth > 768) {
+                galleryScroll = gsap.to(galleryWrapper, {
+                    x: () => -(galleryWrapper.scrollWidth - window.innerWidth),
+                    ease: 'none',
+                    scrollTrigger: {
+                        id: 'gallery-scroll',
+                        trigger: '#galerie',
+                        pin: true,
+                        scrub: 1.15,
+                        end: () => '+=' + Math.max(900, galleryWrapper.scrollWidth)
+                    }
+                });
+            } else {
+                gsap.set(galleryWrapper, { x: 0 });
+            }
+        }
+        setupGallery();
+
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+            setupGallery();
+        });
+
+    </script>
+</body>
+</html>
