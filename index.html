@@ -1,0 +1,20 @@
+.presentation-arch {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: var(--c-beige);
+            border-radius: 200px 200px 0 0;
+            /* overflow: hidden; a été SUPPRIMÉ pour laisser l'image sortir */
+            position: relative;
+            box-shadow: 0 20px 40px rgba(111, 90, 87, 0.1);
+        }
+
+        .presentation-arch img {
+            position: absolute;
+            bottom: 0; /* L'image s'aligne en bas de l'arche */
+            left: -15%; /* L'image déborde un peu sur la gauche */
+            width: 130%; /* L'image est plus grande que l'arche */
+            height: 115%; /* Elle dépasse aussi en haut */
+            object-fit: contain; /* Garantit que ton PNG ne soit pas déformé */
+            z-index: 2;
+            transform: rotate(270deg); /* J'ai déplacé ta rotation ici pour que ce soit propre */
+        }
