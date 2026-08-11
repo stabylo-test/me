@@ -561,15 +561,6 @@
 
         }
 
-       .gallery-scroll-hint {
-                display: none 
-            }
-    
-            /* La petite ligne élégante en dessous */
-        .gallery-scroll-hint::after {
-                display: none;
-        }
-
         .gallery-wrapper {
             display: flex;
             width: max-content;
@@ -903,34 +894,6 @@
                 padding-top: 0;
             }
 
-            .gallery-scroll-hint {
-                display: block;
-                font-family: 'Montserrat', sans-serif;
-                font-size: 0.55rem;
-                letter-spacing: 0.3em;
-                text-transform: uppercase;
-                color: var(--c-white);
-                opacity: 0.7;
-                margin-top: 1.2rem;
-            }
-    
-            /* La petite ligne élégante en dessous */
-            .gallery-scroll-hint::after {
-                content: '';
-                display: block;
-                width: 25px;
-                height: 1px;
-                background: var(--c-white);
-                margin-top: 6px;
-                opacity: 0.7;
-                animation: scrollCue 2s ease-in-out infinite;
-            }
-
-            /* Correction du Scroll Snap (on passe en 'proximity' pour éviter les blocages) */
-            html {
-                scroll-snap-type: y proximity; 
-            }
-            
             .gallery-section {
                 scroll-snap-align: start;
             }
@@ -1080,9 +1043,6 @@
         <div class="gallery-title">
             <span class="font-script">Souvenirs</span>
             <h2>Événements Passés</h2>
-            <div class="scroll-hint">
-                <div class="gallery-scroll-hint">Glisser</div>
-            </div>
         </div>
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cérémonie de Mariage">
@@ -1332,7 +1292,7 @@
             const existing = ScrollTrigger.getById('gallery-scroll');
             if (existing) existing.kill();
 
-            if (window.innerWidth > 768) {
+            if (window.innerWidth > 10) {
                 galleryScroll = gsap.to(galleryWrapper, {
                     x: () => -(galleryWrapper.scrollWidth - window.innerWidth),
                     ease: 'none',
