@@ -7,15 +7,6 @@
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Augustine Lejeune - Flûtiste pour mariages & événements</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
     
@@ -46,9 +37,9 @@
             box-sizing: border-box;
         }
         
-        /* Protection contre le scroll horizontal (très important sur mobile) */
+        /* Protection contre le scroll horizontal. CLIP est essentiel pour l'aimantation ! */
         html, body {
-            overflow-x: hidden;
+            overflow-x: clip; 
             width: 100%;
         }
 
@@ -90,6 +81,8 @@
             color: var(--c-taupe);
             z-index: 1005;
             white-space: nowrap;
+            
+            /* Rendu cliquable */
             pointer-events: auto;
             text-decoration: none;
             cursor: pointer;
@@ -188,56 +181,54 @@
         }
         nav a:hover::after { width: 100%; }
 
-        /* Menu Burger & Croix */
+        /* --- Menu Burger & Croix --- */
         .menu-toggle {
-                display: none; /* TRÈS IMPORTANT : Cache le bouton sur PC */
-                position: absolute; /* Sort le bouton du flux pour un placement parfait */
-                right: 5%; /* Aligné sur la droite du header */
-                top: 50%; /* Descend à 50% de la hauteur du header */
-                transform: translateY(-50%); /* Remonte de sa propre moitié pour un centrage vertical absolu */
-                width: 44px;
-                height: 44px;
-                border: 0;
-                background: transparent;
-                padding: 0;
-                cursor: pointer;
-                z-index: 1010;
-            }
+            display: none; /* Toujours caché sur PC */
+            position: absolute; /* Sort le bouton du flux pour un placement parfait */
+            right: 5%; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            width: 44px;
+            height: 44px;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            z-index: 1010;
+        }
 
-            /* Style des 3 barres */
-            .menu-toggle span {
-                position: absolute;
-                left: 8px; /* 8px de la gauche pour centrer la barre de 28px dans le bouton de 44px */
-                width: 28px;
-                height: 2px;
-                background: var(--c-taupe);
-                transition: transform 0.35s ease, top 0.35s ease, opacity 0.35s ease;
-                transform-origin: center;
-            }
+        .menu-toggle span {
+            position: absolute;
+            left: 8px; 
+            width: 28px;
+            height: 2px;
+            background: var(--c-taupe);
+            transition: transform 0.35s ease, top 0.35s ease, opacity 0.35s ease;
+            transform-origin: center;
+        }
 
-            /* Position initiale des 3 barres (Burger) */
-            .menu-toggle span:nth-child(1) { top: 12px; }
-            .menu-toggle span:nth-child(2) { top: 21px; }
-            .menu-toggle span:nth-child(3) { top: 30px; }
+        .menu-toggle span:nth-child(1) { top: 10px; }
+        .menu-toggle span:nth-child(2) { top: 19px; }
+        .menu-toggle span:nth-child(3) { top: 28px; }
 
-            /* Animation d'ouverture (Croix) */
-            .menu-toggle.open span:nth-child(1) { 
-                top: 21px; 
-                transform: rotate(45deg); 
-            }
-            .menu-toggle.open span:nth-child(2) { 
-                opacity: 0; 
-                transform: translateX(-10px); 
-            }
-            .menu-toggle.open span:nth-child(3) { 
-                top: 21px; 
-                transform: rotate(-45deg); 
-            }
+        .menu-toggle.open span:nth-child(1) { 
+            top: 21px; 
+            transform: rotate(45deg); 
+        }
+        .menu-toggle.open span:nth-child(2) { 
+            opacity: 0; 
+            transform: translateX(-10px); 
+        }
+        .menu-toggle.open span:nth-child(3) { 
+            top: 21px; 
+            transform: rotate(-45deg); 
+        }
+
         /* Overlay Menu Mobile */
         .mobile-menu {
             position: fixed;
             inset: 0;
-            z-index: 999; /* Sous le header pour que la croix reste visible ! */
+            z-index: 999; 
             background: rgba(250, 250, 250, 0.98);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
@@ -257,7 +248,7 @@
         .mobile-menu-inner {
             width: min(86vw, 520px);
             text-align: center;
-            padding-top: 5vh; /* Ajusté pour éviter de taper dans le logo en haut */
+            padding-top: 5vh; 
         }
         .mobile-menu-footer {
             display: block;
@@ -271,7 +262,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2.5rem; /* Ajusté pour que le menu rentre sur un iPhone */
+            gap: 2.5rem; 
         }
         .mobile-menu nav a {
             font-size: clamp(1.2rem, 5vw, 1.8rem);
@@ -292,7 +283,7 @@
             padding: 0;
             overflow: hidden;
             background-color: var(--c-white);
-            margin-bottom: 40px; /* Réduit pour ne pas créer un vide béant */
+            margin-bottom: 40px; 
         }
         
         .hero-arch-bg {
@@ -391,28 +382,29 @@
             padding: 1.5rem;
         }
         
-        .presentation-arch {
-            width: 100%;
+       .presentation-arch {
+            width: 80%;
+            max-width: 380px;
             aspect-ratio: 3/4;
-            /* LA SOLUTION : On force une hauteur minimum pour empêcher l'arche de s'écraser à 0 */
-            min-height: 450px; 
+            min-height: auto; 
             background-color: var(--c-beige);
             border-radius: 200px 200px 0 0;
             position: relative;
             box-shadow: 0 20px 40px rgba(111, 90, 87, 0.1);
+            margin: 40px auto 0 auto; /* Laisse de l'espace en haut pour que la tête sorte */
+            overflow: visible; /* Laisse l'image déborder */
         }
 
         .presentation-arch img {
             position: absolute;
-            top: 55%;
-            left: 45%;
-            width: 140%; 
-            height: 120%;
+            top: 40%; /* Remonte l'image pour qu'elle sorte par le haut */
+            left: 50%;
+            width: 165%; /* Agrandit l'image par rapport au cadre */
+            height: auto;
             transform: translate(-50%, -50%) rotate(270deg); 
             object-fit: contain; 
             z-index: 2;
         }
-
         .presentation-content h2 {
             font-size: 3rem;
             margin-bottom: 1.5rem;
@@ -421,7 +413,7 @@
         .presentation-content h2::before {
             content: 'À propos';
             position: absolute;
-            top: -60px; /* Ajusté pour éviter de collisionner avec l'image */
+            top: -60px; 
             left: 0;
             font-family: 'Mrs Saint Delafield', cursive;
             font-size: 4rem;
@@ -443,7 +435,7 @@
         .section-title {
             text-align: center;
             font-size: 2.8rem;
-            margin-bottom: 4.5rem; /* Un peu plus d'espace pour respirer */
+            margin-bottom: 4.5rem;
             line-height: 0.9;
         }
         .section-title span {
@@ -456,9 +448,9 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Force 3 colonnes sur PC */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 2.5rem;
-            max-width: 1050px; /* Empêche les cartes de devenir trop larges */
+            max-width: 1050px;
             margin: 0 auto;
         }
 
@@ -489,17 +481,12 @@
             transition: width 0.5s ease, background-color 0.5s ease;
         }
 
-        /* Survol (Hover) : la carte reste strictement immobile */
         .service-card:hover {
-            /* AUCUN soulèvement, AUCUN zoom */
             transform: none !important; 
-            
-            /* Juste une légère ombre qui s'intensifie pour l'interaction */
             box-shadow: 0 15px 30px rgba(111, 90, 87, 0.06);
             border-color: rgba(223, 169, 165, 0.25);
         }
 
-        /* Le trait majestueux qu'on garde tel quel ! */
         .service-card:hover h3::after {
             width: 80px; 
             background-color: var(--c-gold);
@@ -520,6 +507,7 @@
         }
 
         /* Repertoire */
+        /* --- Répertoire Amélioré --- */
         .repertoire-section .container { max-width: 980px; }
         .repertoire-list {
             display: flex;
@@ -527,35 +515,85 @@
             gap: 2rem;
             margin: 0 auto;
         }
+        
         .repertoire-item {
             border-bottom: 1px solid var(--c-pink-light);
             padding-bottom: 1.5rem;
-            transition: padding-left 0.35s ease, border-color 0.35s ease;
+            /* On remplace la transition du padding par un transform (ne casse pas la mise en page) */
+            transition: transform 0.35s ease, border-color 0.35s ease;
         }
-        .repertoire-item:hover {
-            padding-left: 12px;
-            border-color: var(--c-gold);
+        
+        /* Sur PC uniquement : léger glissement au survol */
+        @media (min-width: 900px) {
+            .repertoire-item:hover {
+                transform: translateX(10px);
+                border-color: var(--c-gold);
+            }
         }
-        .repertoire-category {
-            font-size: 2rem;
-            color: var(--c-taupe);
+
+        .repertoire-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
         }
-        .repertoire-category span {
+
+        .repertoire-title-group {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            flex-wrap: wrap; /* Autorise le retour à la ligne automatique */
+        }
+
+        .repertoire-title-group h3 {
+            font-size: 2rem;
+            color: var(--c-taupe);
+            margin: 0;
+        }
+
+        .repertoire-title-group span {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.8rem;
             text-transform: uppercase;
             color: var(--c-gold);
             letter-spacing: 2px;
         }
+
         .repertoire-details {
             font-family: 'Montserrat', sans-serif;
             font-style: italic;
             opacity: 0.7;
             font-size: 0.95rem;
+            line-height: 1.8; /* Aère les lignes de textes */
+        }
+
+        /* Le Bouton Audio Élégant */
+        .audio-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--c-gold);
+            background: transparent;
+            color: var(--c-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0; /* Empêche le bouton d'être écrasé par le texte */
+        }
+        
+        .audio-toggle:hover {
+            background: var(--c-gold);
+            color: var(--c-white);
+            box-shadow: 0 4px 15px rgba(201, 166, 107, 0.3);
+        }
+
+        .audio-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         /* Gallery */
@@ -567,17 +605,10 @@
             display: flex;
             align-items: center;
             padding-top:160px;
-
         }
 
-       .gallery-scroll-hint {
-                display: none 
-            }
-    
-            /* La petite ligne élégante en dessous */
-        .gallery-scroll-hint::after {
-                display: none;
-        }
+        .gallery-scroll-hint { display: none; }
+        .gallery-scroll-hint::after { display: none; }
 
         .gallery-wrapper {
             display: flex;
@@ -637,7 +668,7 @@
         }
 
         .contact-form {
-            max-width: 650px; /* Un peu élargi pour que les champs côte à côte respirent */
+            max-width: 650px; 
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -645,13 +676,12 @@
             text-align: left;
         }
         
-        /* NOUVEAU : Gère l'affichage côte à côte */
         .form-row {
             display: flex;
             gap: 2rem;
         }
         .form-row .form-group {
-            flex: 1; /* Chaque champ prend 50% de la place */
+            flex: 1; 
         }
         .form-group input, .form-group textarea {
             width: 100%;
@@ -740,7 +770,7 @@
             color: var(--c-gold);
         }
 
-        /* Responsive & Tablettes */
+        /* --- Reponsive Tablette (Max 900px) --- */
         @media (max-width: 900px) {
             header { height: 72px; padding: 0 20px; }
             header.is-scrolled { height: 66px; }
@@ -749,248 +779,222 @@
             
             .hero-arch-bg { width: 75vw; height: 68vh; border-radius: 75vw 75vw 0 0; }
             .hero-arch-outline { width: 80vw; height: 71vh; border-radius: 80vw 80vw 0 0; }
-            .cards-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 2rem; 
-            }
-            /* Pour que la 3ème carte (Corporate) se centre parfaitement en dessous */
-            .service-card:last-child {
-                grid-column: 1 / -1;
-                max-width: 50%;
-                margin: 0 auto;
-            }.presentation-grid { 
+            
+            .presentation-grid { 
                 grid-template-columns: 1fr; 
                 gap: 2.5rem; 
             }
             .presentation-img-wrapper { 
                 width: 100%;
-                max-width: 500px;
+                max-width: 380px;
                 margin: 0 auto; 
-                 min-height: 450px; 
+                min-height: auto; 
+                overflow: visible; /* TRÈS IMPORTANT : Permet à l'image de sortir du cadre */
+            }
+
+            .presentation-arch {
+                width: 75%;
+                max-width: 300px;
+                aspect-ratio: 3/4;
+                min-height: auto;
+                margin: 40px auto 0 auto; /* Laisse de la place en haut pour que la tête sorte */
+                overflow: visible; /* Laisse l'image déborder */
+            }
+
+            .presentation-arch img {
+                position: absolute;
+                top: 40%; /* Remonte l'image pour qu'elle sorte par le haut */
+                left: 50%;
+                width: 170%; /* Agrandit l'image par rapport au cadre */
+                height: auto;
+                transform: translate(-50%, -50%) rotate(270deg) !important;
+                object-fit: contain;
+                z-index: 2;
             }
             .cards-grid { 
                 grid-template-columns: repeat(2, 1fr); 
+                gap: 2rem; 
+            }
+            .service-card:last-child {
+                grid-column: 1 / -1;
+                max-width: 50%;
+                margin: 0 auto;
             }
             
             .contact-arch { border-radius: 180px 180px 0 0; padding: 4rem 2rem; }
+
+            /* Aimantation verticale active pour mobile & tablette (Lenis désactivé) */
+            html {
+                scroll-snap-type: y proximity;
+                scroll-behavior: auto;
+            }
+            /* --- GALERIE : Système tactile (Tablette & Mobile) --- */
+            
+        .gallery-section {
+            height: 100svh;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            scroll-snap-align: start; 
         }
 
-        html {
-            scroll-snap-type: y proximity;
-            scroll-behavior: smooth;
+        .gallery-wrapper {
+            display: flex;
+            width: 100%;
+            padding: 0 5vw;
+            gap: 1.5rem;
+            
+            overflow-x: auto; /* Autorise le glissement */
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory; /* Aimantation horizontale */
+            
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        .gallery-wrapper::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        /* Tailles pour Tablette (Seront écrasées sur mobile plus bas) */
+        .gallery-title {
+            width: 45vw; 
+            padding-top: 0;
+            scroll-snap-align: center;
+            flex-shrink: 0; 
         }
         
-        .gallery-section {
-                height: 100svh;
-                display: flex;
-                align-items: center;
-                padding: 0;
-                
-                overflow-x: auto; /* Autorise le glissement horizontal */
-                overflow-y: hidden;
-                scroll-snap-type: x mandatory; /* L'aimantation s'active ici */
-                scroll-snap-align: start; /* S'aimante verticalement quand on arrive sur la section */
-                -webkit-overflow-scrolling: touch; /* Rend le défilement très fluide sur iPhone */
-            }
+        .gallery-item {
+            width: 45vw; 
+            max-width: 400px;
+            scroll-snap-align: center;
+            border-radius: 100px 100px 0 0;
+            flex-shrink: 0; 
+        }
 
-            /* Cache la barre de défilement inesthétique */
-            .gallery-section::-webkit-scrollbar { 
-                display: none; 
-            }
+        /* --- NOUVELLE FLÈCHE MINIMALISTE --- */
+        .gallery-scroll-hint {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--c-white);
+            opacity: 0.8;
+            margin-top: 1.5rem;
+        }
+        
+        /* Pointe de la flèche en pur CSS */
+        .gallery-scroll-hint::after {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-top: 1px solid var(--c-white);
+            border-right: 1px solid var(--c-white);
+            margin-left: 15px;
+            vertical-align: middle;
+            transform: rotate(45deg);
+            animation: slideArrow 1.5s ease-in-out infinite;
+        }
 
-            /* 2. Le wrapper sert juste à aligner les images, on lui enlève le snap */
-            .gallery-wrapper {
-                display: flex;
-                width: max-content;
-                padding: 0 20px;
-                gap: 1.5rem;
-            }
+        @keyframes slideArrow {
+            0%, 100% { transform: translateX(0) rotate(45deg); opacity: 0.3; }
+            50% { transform: translateX(6px) rotate(45deg); opacity: 1; }
+        }
+        }
 
-            /* 3. L'item dit "Où" il doit s'arrêter */
-            .gallery-item {
-                width: 75vw;
-                max-width: 300px;
-                scroll-snap-align: center; /* S'aimante parfaitement au milieu de l'écran */
-                border-radius: 100px 100px 0 0;
-            }
-
-        /* Responsive Mobile Strict */
+        /* --- Responsive Mobile Strict (Max 600px) --- */
         @media (max-width: 600px) {
             body { font-size: 14px; }
 
+            /* HERO MOBILE */
             .hero-arch-bg { 
                 width: 86vw; 
-                height: 55vh; 
+                height: 70vh; 
                 border-radius: 86vw 86vw 0 0; 
                 bottom: 0; 
             }
             .hero-arch-outline { 
                 width: 92vw; 
-                height: 58vh; 
+                height: 73vh; 
                 border-radius: 92vw 92vw 0 0; 
                 bottom: 0; 
             }
-            
-            /* Remonter légèrement le contenu pour s'éloigner du texte "SCROLL" */
             .hero-content { 
                 transform: translateY(8vh); 
             }
-            
             .hero-desc { 
                 font-size: 0.75rem; 
-                letter-spacing: 0.35em; /* Un peu plus espacé pour l'élégance */
+                letter-spacing: 0.35em; 
                 max-width: 280px; 
             }
-
             .hero::before { bottom: 65px; }
             .hero::after { bottom: 15px; height: 35px; }
 
             section { padding: 78px 0; }
             .container { width: calc(100% - 40px); }
             
-            /* Debug : Titre "À propos" et Image sur téléphone */
+            /* PRESENTATION MOBILE */
             .presentation-section { padding-top: 80px; }
-
-                /* 1. On réduit la taille globale du bloc image */
-            .presentation-img-wrapper {
-                width: 100%;
-                max-width: 260px; /* On force une taille beaucoup plus fine et élégante */
-                margin: 0 auto;
-                min-height: auto; /* On annule la hauteur minimum forcée du PC */
-                padding: 0;
-            }
-
-            /* 2. L'arche s'adapte à cette nouvelle taille fine */
-            .presentation-arch {
-                width: 100%;
-                aspect-ratio: 3/4;
-                min-height: auto; /* Supprime le min-height: 450px qui posait problème */
-                margin: 0 auto;
-            }
-            
-            /* 3. L'image sort de l'arche avec un ratio un peu plus doux */
-            .presentation-arch img {
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(270deg) !important;
-                width: 130%; /* Légèrement réduit pour ne pas trop déborder */
-                height: 110%;
-            }
-
-            /* 4. On rapproche le titre pour lier l'image au texte */
+           
             .presentation-content h2 { 
                 font-size: 2.2rem; 
-                margin-top: 1.5rem; /* Réduit l'espace vide sous l'image */
-                text-align: center; /* Centre le titre pour plus d'harmonie */
+                margin-top: 1.5rem; 
+                text-align: center; 
             }
-            
             .presentation-content h2::before { 
-                top: -35px; /* Repositionne le mot cursif "À propos" */
+                top: -35px; 
                 font-size: 2.8rem; 
                 left: 50%;
-                transform: translateX(-50%); /* Centre le mot cursif parfaitement */
+                transform: translateX(-50%); 
             }
-
+            /* Signature ferrée à gauche */
             .presentation-content p.font-script {
-                text-align: center !important;
+                text-align: left !important;
+                margin-left: 5%;
             }
             
+            /* PRESTATIONS MOBILE */
             .section-title { font-size: 2.5rem; margin-bottom: 2.7rem; }
             .section-title span { font-size: 3rem; margin-bottom: -10px; }
+            
             .cards-grid { 
-                grid-template-columns: 1fr; /* Repasse sur 1 seule colonne */
+                grid-template-columns: 1fr; 
                 gap: 1.5rem; 
             }
-
             .service-card { 
-                max-width: 320px; /* Empêche la carte de s'écraser sur toute la largeur */
-                margin: 0 auto; /* Centre la carte dans son conteneur */
+                max-width: 320px; 
+                margin: 0 auto; 
                 padding: 3.5rem 1.8rem 3rem; 
-                border-radius: 160px 160px 12px 12px; /* Une arche bien dessinée */
-                border: 1px solid rgba(223, 169, 165, 0.3); /* Liseré très fin (rose poudré) */
-                box-shadow: 0 8px 25px rgba(111, 90, 87, 0.05); /* Légère ombre pour donner du relief */
+                border-radius: 160px 160px 12px 12px; 
+                border: 1px solid rgba(223, 169, 165, 0.3); 
+                box-shadow: 0 8px 25px rgba(111, 90, 87, 0.05); 
             }
-            
-            /* On s'assure que la dernière carte ne prend pas toute la largeur non plus */
             .service-card:last-child {
                 max-width: 320px; 
             }
             .service-card::before { border-radius: 110px 110px 0 0; }
             
+            /* REPERTOIRE MOBILE */
             .repertoire-category { font-size: 1.65rem; display: block; }
             .repertoire-category span { display: block; margin-top: 6px; font-size: 0.65rem; }
             .repertoire-details { font-size: 0.8rem; }
             
-            .gallery-scroll-hint {
-                display: block;
-                font-family: 'Montserrat', sans-serif;
-                font-size: 0.55rem;
-                letter-spacing: 0.3em;
-                text-transform: uppercase;
-                color: var(--c-white);
-                opacity: 0.7;
-                margin-top: 1.2rem;
+            .gallery-title {
+                width: 75vw;
             }
-            
-            .gallery-scroll-hint::after {
-                content: '';
-                display: block;
-                width: 25px;
-                height: 1px;
-                background: var(--c-white);
-                margin-top: 6px;
-                opacity: 0.7;
-                animation: scrollCue 2s ease-in-out infinite;
-            }
+            .gallery-title h2 { font-size: 3rem; }
+            .gallery-title span { font-size: 4rem; }
 
-            
-            .gallery-section {
-                height: 100svh;
-                display: flex;
-                align-items: center;
-                padding: 0;
-                
-                overflow-x: auto; /* Autorise le glissement horizontal */
-                overflow-y: hidden;
-                scroll-snap-type: x mandatory; /* L'aimantation s'active ici */
-                scroll-snap-align: start; /* S'aimante verticalement quand on arrive sur la section */
-                -webkit-overflow-scrolling: touch; /* Rend le défilement très fluide sur iPhone */
-            }
-
-            /* Cache la barre de défilement inesthétique */
-            .gallery-section::-webkit-scrollbar { 
-                display: none; 
-            }
-
-            /* 2. Le wrapper sert juste à aligner les images, on lui enlève le snap */
-            .gallery-wrapper {
-                display: flex;
-                width: max-content;
-                padding: 0 20px;
-                gap: 1.5rem;
-            }
-
-            /* 3. L'item dit "Où" il doit s'arrêter */
             .gallery-item {
                 width: 75vw;
                 max-width: 300px;
-                scroll-snap-align: center; /* S'aimante parfaitement au milieu de l'écran */
-                border-radius: 100px 100px 0 0;
             }
-            .gallery-title h2 { font-size: 3rem; }
-            .gallery-title span { font-size: 4rem; }
-
-            .gallery-section::-webkit-scrollbar { display: none; }
-            .gallery-title h2 { font-size: 3rem; }
-            .gallery-title span { font-size: 4rem; }
             
+            /* CONTACT MOBILE */
             .contact-arch { width: 100%; border-radius: 130px 130px 0 0; padding: 4.2rem 1.2rem; }
             .contact-arch .section-title { font-size: 2.7rem; }
-
-            .form-row {
-                flex-direction: column;
-                gap: 2.5rem;
-            }
+            .form-row { flex-direction: column; gap: 2.5rem; }
             .submit-btn { padding: 15px 30px; }
         }
     </style>
@@ -1085,47 +1089,84 @@
         </div>
     </section>
 
-    <section class="repertoire-section" id="repertoire">
+   <section class="repertoire-section" id="repertoire">
         <div class="container">
             <h2 class="section-title">
                 <span class="font-script">Extraits musicaux</span>
                 Exemple de Répertoire
             </h2>
             <div class="repertoire-list">
+                
+                <!-- Item 1 : Classique -->
                 <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Classique <span>Élégance intemporelle</span>
+                    <div class="repertoire-header">
+                        <div class="repertoire-title-group">
+                            <h3>Classique</h3>
+                            <span>Élégance intemporelle</span>
+                        </div>
+                        <!-- Bouton Audio (Modifiez le src de l'audio) -->
+                        <button class="audio-toggle" aria-label="Écouter l'extrait classique" data-audio="audio-classique">
+                            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <audio id="audio-classique" src="LIEN_VERS_VOTRE_MP3_CLASSIQUE.mp3" preload="none"></audio>
                     </div>
-                    <div class="repertoire-details">
+                    <p class="repertoire-details">
                         J.S. Bach (Ave Maria, Badinerie) • W.A. Mozart (Concerto en Sol majeur) • C. Debussy (Syrinx) • G. Fauré (Sicilienne, Pavane)
-                    </div>
+                    </p>
                 </div>
+
+                <!-- Item 2 : Musique de Film -->
                 <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Musique de Film <span>Émotions cinématographiques</span>
+                    <div class="repertoire-header">
+                        <div class="repertoire-title-group">
+                            <h3>Musique de Film</h3>
+                            <span>Émotions cinématographiques</span>
+                        </div>
+                        <button class="audio-toggle" aria-label="Écouter l'extrait film" data-audio="audio-film">
+                            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <audio id="audio-film" src="LIEN_VERS_VOTRE_MP3_FILM.mp3" preload="none"></audio>
                     </div>
-                    <div class="repertoire-details">
+                    <p class="repertoire-details">
                         Ennio Morricone (Gabriel's Oboe, Cinema Paradiso) • Hans Zimmer (Gladiator, Interstellar) • Yann Tiersen (Amélie Poulain)
-                    </div>
+                    </p>
                 </div>
+
+                <!-- Item 3 : Pop & Variété -->
                 <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Pop & Variété <span>Touches modernes</span>
+                    <div class="repertoire-header">
+                        <div class="repertoire-title-group">
+                            <h3>Pop & Variété</h3>
+                            <span>Touches modernes</span>
+                        </div>
+                        <button class="audio-toggle" aria-label="Écouter l'extrait pop" data-audio="audio-pop">
+                            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <audio id="audio-pop" src="LIEN_VERS_VOTRE_MP3_POP.mp3" preload="none"></audio>
                     </div>
-                    <div class="repertoire-details">
+                    <p class="repertoire-details">
                         Ed Sheeran (Perfect) • John Legend (All of Me) • Coldplay (Viva La Vida) • Christina Perri (A Thousand Years)
-                    </div>
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
 
-   <section class="gallery-section" id="galerie">
+    <section class="gallery-section" id="galerie">
         <div class="gallery-wrapper">
             <div class="gallery-title">
                 <span class="font-script">Souvenirs</span>
                 <h2>Événements Passés</h2>
                 <div class="gallery-scroll-hint">Glisser</div>
+            </div>
+            <!-- Item Vidéo YouTube -->
+            <div class="gallery-item">
+                <!-- iframe = intégration YouTube classique -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/LPvC_L-QZew?si=13yNy0PWTHvwFX2f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="gallery-item">
                 <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cérémonie de Mariage">
@@ -1143,6 +1184,7 @@
             </div>
         </div>
     </section>
+    
     <section class="contact-section" id="contact">
         <div class="container">
             <div class="contact-arch">
@@ -1152,7 +1194,6 @@
                 </h2>
                 
                 <form class="contact-form" id="contactForm">
-                    <!-- Ligne 1 : Nom et Email -->
                     <div class="form-row">
                         <div class="form-group">
                             <input type="text" id="contact-nom" placeholder="Votre nom" required>
@@ -1161,28 +1202,20 @@
                             <input type="email" id="contact-email" placeholder="Votre Email" required>
                         </div>
                     </div>
-                    
-                    <!-- Ligne 2 : Date et Localisation -->
                     <div class="form-row">
                         <div class="form-group">
-                            <!-- Le champ type="date" affiche directement le Date Picker -->
                             <input type="date" id="contact-date" required>
                         </div>
                         <div class="form-group">
                             <input type="text" id="contact-loc" placeholder="Lieu de l'événement" required>
                         </div>
                     </div>
-                    
-                    <!-- Ligne 3 : Pleine largeur -->
                     <div class="form-group">
                         <input type="text" id="contact-event" placeholder="Type d'événement (Mariage, Cocktail...)">
                     </div>
-                    
-                    <!-- Ligne 4 : Message -->
                     <div class="form-group">
                         <textarea id="contact-message" placeholder="Votre message ou vos envies musicales..." rows="4" required></textarea>
                     </div>
-                    
                     <button type="submit" class="submit-btn">Envoyer la demande</button>
                 </form>
 
@@ -1212,7 +1245,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Smooth Scroll Setup (Lenis)
+        // Smooth Scroll Setup (Lenis) actif uniquement sur PC
         let lenis = null;
         if (window.innerWidth > 900) {
             lenis = new Lenis({
@@ -1225,12 +1258,13 @@
                 smoothTouch: false,
                 touchMultiplier: 2,
                 infinite: false,
-        });
+            });
 
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000) });
-        gsap.ticker.lagSmoothing(0);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
         }
+        
         // --- Animations & Logo dynamique fluide ---
         const header = document.getElementById('main-header');
         const logo = document.getElementById('logo');
@@ -1400,1412 +1434,101 @@
         });
 
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche le rechargement de la page
+            e.preventDefault(); 
 
-            // Récupération des valeurs
             const nom = document.getElementById('contact-nom').value;
             const email = document.getElementById('contact-email').value;
             let date = document.getElementById('contact-date').value;
-            const localisation = document.getElementById('contact-loc').value; // NOUVEAU
+            const localisation = document.getElementById('contact-loc').value; 
             const event = document.getElementById('contact-event').value;
             const message = document.getElementById('contact-message').value;
 
-            // Transformation de la date (AAAA-MM-JJ en JJ/MM/AAAA)
             if (date && date.includes('-')) {
                 const parts = date.split('-');
                 date = `${parts[2]}/${parts[1]}/${parts[0]}`;
             }
 
-            // Construction de l'email
             const destinataire = "Augustine Lejeune <augustine.flute@gmail.com>";
-            
-            // Le sujet
             const sujet = encodeURIComponent(`Demande de prestation : ${event}, ${date}, ${localisation} - ${nom}`);
-            
-            // Le corps du message formaté
             const corpsMessage = encodeURIComponent(`${message}\n\n ${nom}`);
 
-            // Ouverture du client mail
             window.location.href = `mailto:${destinataire}?subject=${sujet}&body=${corpsMessage}`;
         });
 
+        // Système d'ancres fluides compatible Lenis (PC) et Natif (Mobile)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault(); // Empêche le saut brutal par défaut
+                e.preventDefault(); 
                 
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
                     if (lenis) {
-                        // Sur PC : Utilisation de Lenis
-                        lenis.scrollTo(targetElement, {
-                            offset: -80,
-                            duration: 1.2,
-                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-                        });
+                        // CAS SPÉCIAL PC : Si on clique sur Galerie, on vise directement le début du Pin GSAP
+                        if (targetId === '#galerie' && window.innerWidth > 900 && galleryScroll && galleryScroll.scrollTrigger) {
+                            lenis.scrollTo(galleryScroll.scrollTrigger.start, {
+                                duration: 1.2,
+                                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                            });
+                        } else {
+                            // Autres liens sur PC
+                            lenis.scrollTo(targetElement, {
+                                offset: -80,
+                                duration: 1.2,
+                                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                            });
+                        }
                     } else {
-                        // Sur Mobile : Défilement natif fluide (car Lenis est désactivé)
+                        // Sur Mobile : Défilement natif fluide
                         const y = targetElement.getBoundingClientRect().top + window.scrollY - 80;
                         window.scrollTo({ top: y, behavior: 'smooth' });
                     }
                 }
             });
         });
-    </script>
-</body>
-</html>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
-    
-    <!-- Lenis CSS for smooth scrolling -->
-    <style>
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
-        .lenis.lenis-scrolling iframe { pointer-events: none; }
-    </style>
 
-    <style>
-        /* Variables Chartes Graphiques */
-        :root {
-            --c-pink-dusty: #DFA9A5;
-            --c-pink-light: #F3D9D5;
-            --c-beige: #E9DDD0;
-            --c-taupe: #6F5A57;
-            --c-gold: #C9A66B;
-            --c-white: #FAFAFA;
-        }
+        // --- Lecteur Audio (Répertoire) ---
+        const audioToggles = document.querySelectorAll('.audio-toggle');
+        let currentAudio = null;
+        let currentToggle = null;
 
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* Protection contre le scroll horizontal (très important sur mobile) */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        body {
-            background-color: var(--c-white);
-            color: var(--c-taupe);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-        }
-        .font-script {
-            font-family: 'Mrs Saint Delafield', cursive;
-        }
-        .text-gold { color: var(--c-gold); }
-        .text-taupe { color: var(--c-taupe); }
-        
-        /* Layout */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        section {
-            padding: clamp(80px, 9vw, 130px) 0;
-            position: relative;
-        }
-
-        /* Header & Dynamic Logo */
-        .dynamic-logo {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--c-taupe);
-            z-index: 1005;
-            white-space: nowrap;
-            pointer-events: auto;
-            text-decoration: none;
-            cursor: pointer;
-            
-            text-align: center;
-            line-height: 1;
-            text-shadow: 0 4px 20px rgba(250, 250, 250, 0.4);
-            transition: top 0.05s ease-out, font-size 0.05s ease-out, opacity 0.3s ease;
-        }
-        
-        /* État du logo quand le burger menu est ouvert */
-        body.menu-open .dynamic-logo {
-            top: 24px !important;
-            font-size: clamp(26px, 6vw, 34px) !important;
-            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-
-       header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 90px;
-            background: transparent;
-            border-bottom: none;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            transition: height 0.45s ease;
-        }
-
-        /* Le calque invisible qui gère le flou dégradé parfait */
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 200%; 
-            z-index: -1; 
-            pointer-events: none; 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-        }
-        
-        /* Au scroll, on réduit juste la hauteur */
-        header.is-scrolled {
-            height: 70px;
-        }
-        
-        /* Quand le menu mobile est ouvert, on désactive le calque flouté */
-        body.menu-open header::before {
-            display: none !important;
-        }  
-        body.menu-open header {
-            background: transparent !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-        }
-        
-        .header-side { width: 40%; }
-        .header-right { display: flex; justify-content: flex-end; }
-        .header-side nav ul {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-            transform: translateY(-8px);
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--c-taupe);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            position: relative;
-            transition: color 0.3s;
-        }
-        nav a:hover { color: var(--c-gold); }
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--c-gold);
-            transition: width 0.3s ease;
-        }
-        nav a:hover::after { width: 100%; }
-
-        /* Menu Burger & Croix */
-        .menu-toggle {
-                display: none; /* TRÈS IMPORTANT : Cache le bouton sur PC */
-                position: absolute; /* Sort le bouton du flux pour un placement parfait */
-                right: 5%; /* Aligné sur la droite du header */
-                top: 50%; /* Descend à 50% de la hauteur du header */
-                transform: translateY(-50%); /* Remonte de sa propre moitié pour un centrage vertical absolu */
-                width: 44px;
-                height: 44px;
-                border: 0;
-                background: transparent;
-                padding: 0;
-                cursor: pointer;
-                z-index: 1010;
-            }
-
-            /* Style des 3 barres */
-            .menu-toggle span {
-                position: absolute;
-                left: 8px; /* 8px de la gauche pour centrer la barre de 28px dans le bouton de 44px */
-                width: 28px;
-                height: 2px;
-                background: var(--c-taupe);
-                transition: transform 0.35s ease, top 0.35s ease, opacity 0.35s ease;
-                transform-origin: center;
-            }
-
-            /* Position initiale des 3 barres (Burger) */
-            .menu-toggle span:nth-child(1) { top: 12px; }
-            .menu-toggle span:nth-child(2) { top: 21px; }
-            .menu-toggle span:nth-child(3) { top: 30px; }
-
-            /* Animation d'ouverture (Croix) */
-            .menu-toggle.open span:nth-child(1) { 
-                top: 21px; 
-                transform: rotate(45deg); 
-            }
-            .menu-toggle.open span:nth-child(2) { 
-                opacity: 0; 
-                transform: translateX(-10px); 
-            }
-            .menu-toggle.open span:nth-child(3) { 
-                top: 21px; 
-                transform: rotate(-45deg); 
-            }
-        /* Overlay Menu Mobile */
-        .mobile-menu {
-            position: fixed;
-            inset: 0;
-            z-index: 999; /* Sous le header pour que la croix reste visible ! */
-            background: rgba(250, 250, 250, 0.98);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .mobile-menu.open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-        .mobile-menu-inner {
-            width: min(86vw, 520px);
-            text-align: center;
-            padding-top: 5vh; /* Ajusté pour éviter de taper dans le logo en haut */
-        }
-        .mobile-menu-footer {
-            display: block;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--c-gold);
-            margin-top: 3rem;
-        }
-        .mobile-menu nav {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2.5rem; /* Ajusté pour que le menu rentre sur un iPhone */
-        }
-        .mobile-menu nav a {
-            font-size: clamp(1.2rem, 5vw, 1.8rem);
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            padding: 5px 12px;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 100svh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0;
-            overflow: hidden;
-            background-color: var(--c-white);
-            margin-bottom: 40px; /* Réduit pour ne pas créer un vide béant */
-        }
-        
-        .hero-arch-bg {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 38vw;
-            height: 72vh;
-            background: linear-gradient(180deg, var(--c-pink-light) 0%, rgba(250,250,250,0) 90%);
-            border-radius: 40vw 40vw 0 0;
-            z-index: 1;
-        }
-        
-        .hero-arch-outline {
-            position: absolute;
-            bottom: -2%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 41vw;
-            height: 75vh;
-            border: 1px solid var(--c-gold);
-            border-radius: 41vw 41vw 0 0;
-            z-index: 1;
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            transform: translateY(14vh); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-divider {
-            width: 40px;
-            height: 1px;
-            background-color: var(--c-gold);
-            margin: 0 auto 1.5rem auto;
-            opacity: 0.7;
-        }
-
-        .hero-desc {
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.35em;
-            color: var(--c-taupe);
-            opacity: 0.9;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--c-gold), transparent);
-            opacity: 0.7;
-            animation: scrollCue 2s ease-in-out infinite;
-            z-index: 15;
-        }
-        .hero::before {
-            content: 'SCROLL';
-            position: absolute;
-            bottom: 95px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.55rem;
-            letter-spacing: 0.3em;
-            color: var(--c-taupe);
-            opacity: 0.7;
-            z-index: 15;
-        }
-
-        @keyframes scrollCue {
-            0%, 100% { transform: scaleY(0.5); transform-origin: top; opacity: 0.2; }
-            50% { transform: scaleY(1); transform-origin: top; opacity: 0.8; }
-        }
-
-        /* Presentation */
-        .presentation-section { padding-top: clamp(80px, 11vw, 150px); }
-        .presentation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .presentation-img-wrapper {
-            position: relative;
-            padding: 1.5rem;
-        }
-        
-        .presentation-arch {
-            width: 100%;
-            aspect-ratio: 3/4;
-            /* LA SOLUTION : On force une hauteur minimum pour empêcher l'arche de s'écraser à 0 */
-            min-height: 450px; 
-            background-color: var(--c-beige);
-            border-radius: 200px 200px 0 0;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(111, 90, 87, 0.1);
-        }
-
-        .presentation-arch img {
-            position: absolute;
-            top: 55%;
-            left: 45%;
-            width: 140%; 
-            height: 120%;
-            transform: translate(-50%, -50%) rotate(270deg); 
-            object-fit: contain; 
-            z-index: 2;
-        }
-
-        .presentation-content h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        .presentation-content h2::before {
-            content: 'À propos';
-            position: absolute;
-            top: -60px; /* Ajusté pour éviter de collisionner avec l'image */
-            left: 0;
-            font-family: 'Mrs Saint Delafield', cursive;
-            font-size: 4rem;
-            color: var(--c-pink-dusty);
-            opacity: 0.4;
-            z-index: -1;
-        }
-        .presentation-content p {
-            margin-bottom: 1.5rem;
-            color: var(--c-taupe);
-            opacity: 0.8;
-        }
-
-        /* Prestations */
-        .prestations-section { 
-            background-color: var(--c-beige); 
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 4.5rem; /* Un peu plus d'espace pour respirer */
-            line-height: 0.9;
-        }
-        .section-title span {
-            display: block;
-            font-size: 3.2rem;
-            color: var(--c-pink-dusty);
-            margin-bottom: -15px;
-            opacity: 0.6;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Force 3 colonnes sur PC */
-            gap: 2.5rem;
-            max-width: 1050px; /* Empêche les cartes de devenir trop larges */
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: var(--c-white);
-            padding: 4.5rem 2rem 4rem; 
-            border-radius: 200px 200px 15px 15px; 
-            text-align: center;
-           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease; 
-            position: relative;
-            box-shadow: 0 10px 30px rgba(111, 90, 87, 0.04);
-            border: 1px solid transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .service-card h3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 1px;
-            background-color: var(--c-pink-dusty);
-            opacity: 0.6;
-            transition: width 0.5s ease, background-color 0.5s ease;
-        }
-
-        /* Survol (Hover) : la carte reste strictement immobile */
-        .service-card:hover {
-            /* AUCUN soulèvement, AUCUN zoom */
-            transform: none !important; 
-            
-            /* Juste une légère ombre qui s'intensifie pour l'interaction */
-            box-shadow: 0 15px 30px rgba(111, 90, 87, 0.06);
-            border-color: rgba(223, 169, 165, 0.25);
-        }
-
-        /* Le trait majestueux qu'on garde tel quel ! */
-        .service-card:hover h3::after {
-            width: 80px; 
-            background-color: var(--c-gold);
-            opacity: 0.8;
-        }
-        .service-card h3 {
-            font-size: 2rem;
-            color: var(--c-gold);
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .service-card p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            opacity: 0.8;
-            margin-top: 1rem;
-        }
-
-        /* Repertoire */
-        .repertoire-section .container { max-width: 980px; }
-        .repertoire-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin: 0 auto;
-        }
-        .repertoire-item {
-            border-bottom: 1px solid var(--c-pink-light);
-            padding-bottom: 1.5rem;
-            transition: padding-left 0.35s ease, border-color 0.35s ease;
-        }
-        .repertoire-item:hover {
-            padding-left: 12px;
-            border-color: var(--c-gold);
-        }
-        .repertoire-category {
-            font-size: 2rem;
-            color: var(--c-taupe);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .repertoire-category span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--c-gold);
-            letter-spacing: 2px;
-        }
-        .repertoire-details {
-            font-family: 'Montserrat', sans-serif;
-            font-style: italic;
-            opacity: 0.7;
-            font-size: 0.95rem;
-        }
-
-        /* Gallery */
-        .gallery-section {
-            height: 100vh;
-            overflow: hidden;
-            background-color: var(--c-pink-dusty);
-            color: var(--c-white);
-            display: flex;
-            align-items: center;
-            padding-top:160px;
-
-        }
-
-        .gallery-wrapper {
-            display: flex;
-            width: max-content;
-            padding: 0 5vw;
-            gap: 4rem;
-            align-items: center;        
-        }
-        
-        .gallery-title {
-            width: 30vw;
-            flex-shrink: 0;
-        }
-        .gallery-title h2 {
-            font-size: 4rem;
-            line-height: 1;
-        }
-        .gallery-title span {
-            font-size: 5rem;
-            color: var(--c-white);
-            opacity: 0.3;
-            display: block;
-            margin-bottom: -20px;
-        }
-
-        .gallery-item {
-            width: min(35vw, 60vh); 
-            max-width: 500px;
-            aspect-ratio: 3/4;
-            border-radius: 200px 200px 0 0;
-            overflow: hidden;
-            flex-shrink: 0;
-            background-color: var(--c-pink-light);
-            position: relative;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(20%) sepia(20%);
-        }
-
-        /* --- Formulaire de Contact --- */
-        .contact-section {
-            background-color: var(--c-white);
-            text-align: center;
-            padding: clamp(95px, 11vw, 145px) 0 100px;
-        }
-        .contact-arch {
-            background-color: var(--c-pink-light);
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 300px 300px 0 0;
-            padding: 5.5rem 3rem;
-            position: relative;
-        }
-
-        .contact-form {
-            max-width: 650px; /* Un peu élargi pour que les champs côte à côte respirent */
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-            text-align: left;
-        }
-        
-        /* NOUVEAU : Gère l'affichage côte à côte */
-        .form-row {
-            display: flex;
-            gap: 2rem;
-        }
-        .form-row .form-group {
-            flex: 1; /* Chaque champ prend 50% de la place */
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(111, 90, 87, 0.2);
-            padding: 10px 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            color: var(--c-taupe);
-            transition: border-color 0.3s;
-            border-radius: 0;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-bottom-color: var(--c-gold);
-        }
-        .form-group input::placeholder, .form-group textarea::placeholder {
-            color: rgba(111, 90, 87, 0.4);
-            font-weight: 300;
-            font-style: italic;
-        }
-        .submit-btn {
-            background: var(--c-taupe);
-            color: var(--c-white);
-            border: none;
-            padding: 18px 40px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            align-self: center;
-            margin-top: 1rem;
-        }
-        .submit-btn:hover {
-            background: var(--c-gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(201, 166, 107, 0.2);
-        }
-        .contact-direct {
-            margin-top: 3.5rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .contact-direct a {
-            color: var(--c-taupe);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .contact-direct a:hover {
-            color: var(--c-gold);
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: var(--c-white);
-            color: var(--c-taupe);
-            padding: 2.5rem 5%;
-            text-align: center;
-        }
-        .footer-bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.65rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-        .footer-legal {
-            display: flex;
-            gap: 20px;
-        }
-        .footer-legal a {
-            color: var(--c-taupe);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer-legal a:hover {
-            color: var(--c-gold);
-        }
-
-        /* Responsive & Tablettes */
-        @media (max-width: 900px) {
-            header { height: 72px; padding: 0 20px; }
-            header.is-scrolled { height: 66px; }
-            .header-side { display: none; }
-            .menu-toggle { display: block;}
-            
-            .hero-arch-bg { width: 75vw; height: 68vh; border-radius: 75vw 75vw 0 0; }
-            .hero-arch-outline { width: 80vw; height: 71vh; border-radius: 80vw 80vw 0 0; }
-            .cards-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 2rem; 
-            }
-            /* Pour que la 3ème carte (Corporate) se centre parfaitement en dessous */
-            .service-card:last-child {
-                grid-column: 1 / -1;
-                max-width: 50%;
-                margin: 0 auto;
-            }.presentation-grid { 
-                grid-template-columns: 1fr; 
-                gap: 2.5rem; 
-            }
-            .presentation-img-wrapper { 
-                width: 100%;
-                max-width: 500px;
-                margin: 0 auto; 
-                 min-height: 450px; 
-            }
-            .cards-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-            }
-            
-            .contact-arch { border-radius: 180px 180px 0 0; padding: 4rem 2rem; }
-        }
-
-        /* Responsive Mobile Strict */
-        @media (max-width: 600px) {
-            body { font-size: 14px; }
-
-            .hero-arch-bg { 
-                width: 86vw; 
-                height: 55vh; 
-                border-radius: 86vw 86vw 0 0; 
-                bottom: 0; 
-            }
-            .hero-arch-outline { 
-                width: 92vw; 
-                height: 58vh; 
-                border-radius: 92vw 92vw 0 0; 
-                bottom: 0; 
-            }
-            
-            /* Remonter légèrement le contenu pour s'éloigner du texte "SCROLL" */
-            .hero-content { 
-                transform: translateY(8vh); 
-            }
-            
-            .hero-desc { 
-                font-size: 0.75rem; 
-                letter-spacing: 0.35em; /* Un peu plus espacé pour l'élégance */
-                max-width: 280px; 
-            }
-
-            .hero::before { bottom: 65px; }
-            .hero::after { bottom: 15px; height: 35px; }
-
-            section { padding: 78px 0; }
-            .container { width: calc(100% - 40px); }
-            
-            /* Debug : Titre "À propos" et Image sur téléphone */
-            .presentation-section { padding-top: 80px; }
-
-                /* 1. On réduit la taille globale du bloc image */
-            .presentation-img-wrapper {
-                width: 100%;
-                max-width: 260px; /* On force une taille beaucoup plus fine et élégante */
-                margin: 0 auto;
-                min-height: auto; /* On annule la hauteur minimum forcée du PC */
-                padding: 0;
-            }
-
-            /* 2. L'arche s'adapte à cette nouvelle taille fine */
-            .presentation-arch {
-                width: 100%;
-                aspect-ratio: 3/4;
-                min-height: auto; /* Supprime le min-height: 450px qui posait problème */
-                margin: 0 auto;
-            }
-            
-            /* 3. L'image sort de l'arche avec un ratio un peu plus doux */
-            .presentation-arch img {
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(270deg) !important;
-                width: 130%; /* Légèrement réduit pour ne pas trop déborder */
-                height: 110%;
-            }
-
-            /* 4. On rapproche le titre pour lier l'image au texte */
-            .presentation-content h2 { 
-                font-size: 2.2rem; 
-                margin-top: 1.5rem; /* Réduit l'espace vide sous l'image */
-                text-align: center; /* Centre le titre pour plus d'harmonie */
-            }
-            
-            .presentation-content h2::before { 
-                top: -35px; /* Repositionne le mot cursif "À propos" */
-                font-size: 2.8rem; 
-                left: 50%;
-                transform: translateX(-50%); /* Centre le mot cursif parfaitement */
-            }
-
-            .presentation-content p.font-script {
-                text-align: center !important;
-            }
-            
-            .section-title { font-size: 2.5rem; margin-bottom: 2.7rem; }
-            .section-title span { font-size: 3rem; margin-bottom: -10px; }
-            .cards-grid { 
-                grid-template-columns: 1fr; /* Repasse sur 1 seule colonne */
-                gap: 1.5rem; 
-            }
-
-            .service-card { 
-                max-width: 320px; /* Empêche la carte de s'écraser sur toute la largeur */
-                margin: 0 auto; /* Centre la carte dans son conteneur */
-                padding: 3.5rem 1.8rem 3rem; 
-                border-radius: 160px 160px 12px 12px; /* Une arche bien dessinée */
-                border: 1px solid rgba(223, 169, 165, 0.3); /* Liseré très fin (rose poudré) */
-                box-shadow: 0 8px 25px rgba(111, 90, 87, 0.05); /* Légère ombre pour donner du relief */
-            }
-            
-            /* On s'assure que la dernière carte ne prend pas toute la largeur non plus */
-            .service-card:last-child {
-                max-width: 320px; 
-            }
-            .service-card::before { border-radius: 110px 110px 0 0; }
-            
-            .repertoire-category { font-size: 1.65rem; display: block; }
-            .repertoire-category span { display: block; margin-top: 6px; font-size: 0.65rem; }
-            .repertoire-details { font-size: 0.8rem; }
-            
-            .gallery-wrapper {
-                display: flex;
-                width: max-content;
-                padding: 0 20px;
-                gap: 1.5rem;
-                scroll-snap-type: x mandatory; /* Force le comportement d'aimantation */
-            }
-
-            .gallery-item {
-                width: 75vw; /* Légèrement plus large pour mieux voir */
-                max-width: 300px;
-                scroll-snap-align: center; /* L'image s'arrête au centre de l'écran */
-                border-radius: 100px 100px 0 0;
-            }
-
-            .gallery-section {
-                height: 100svh; /* Force la hauteur à 100% de l'écran visible */
-                display: flex;
-                align-items: center;
-               scroll-snap-align: start;
-                scroll-snap-stop: always;
-                padding: 0;
-            }
-
-            /* Le titre et l'indicateur */
-            .gallery-title {
-                width: 70vw;
-                padding-top: 0;
-            }
-
-            .gallery-section {
-                scroll-snap-align: start;
-            }
-
-            .gallery-section::-webkit-scrollbar { display: none; }
-            .gallery-title h2 { font-size: 3rem; }
-            .gallery-title span { font-size: 4rem; }
-            
-            .contact-arch { width: 100%; border-radius: 130px 130px 0 0; padding: 4.2rem 1.2rem; }
-            .contact-arch .section-title { font-size: 2.7rem; }
-
-            .form-row {
-                flex-direction: column;
-                gap: 2.5rem;
-            }
-            .submit-btn { padding: 15px 30px; }
-        }
-    </style>
-</head>
-<body>
-
-    <header id="main-header">
-        <div class="header-side header-left">
-            <nav aria-label="Navigation principale gauche">
-                <ul>
-                    <li><a href="#repertoire">Répertoire</a></li>
-                    <li><a href="#prestations">Prestations</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <div class="header-side header-right">
-            <nav aria-label="Navigation principale droite">
-                <ul>
-                    <li><a href="#galerie">Galerie</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
-
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-        <div class="mobile-menu-inner">
-            <nav aria-label="Navigation mobile">
-                <a href="#prestations">Prestations</a>
-                <a href="#repertoire">Répertoire</a>
-                <a href="#galerie">Galerie</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <span class="mobile-menu-footer">Flûtiste · Mariages · Événements</span>
-        </div>
-    </div>
-
-    <!-- Le logo dynamique géré par JS/CSS -->
-    <a href="#presentation" class="dynamic-logo font-script" id="logo">Augustine Lejeune</a>
-
-    <section class="hero" id="hero">
-        <div class="hero-arch-outline" id="arch-outline"></div>
-        <div class="hero-arch-bg" id="arch-bg"></div>
-        
-        <div class="hero-content">
-            <div class="hero-divider"></div>
-            <p class="hero-desc">Flûtiste évenementielle</p>
-        </div>
-    </section>
-
-    <section class="presentation-section" id="presentation">
-        <div class="container presentation-grid">
-            <div class="presentation-img-wrapper" id="img-anim">
-                <div class="presentation-arch">
-                   <img src="gugu detoure fafafa v3 .png" alt="Augustine à la flûte">
-                </div>
-            </div>
-            <div class="presentation-content">
-                <h2>L'élégance en musique</h2>
-                <p>Passionnée par la flûte traversière depuis mon plus jeune âge, j'ai fait de la musique bien plus qu'un métier : un véritable moyen de partager des émotions intenses et d'immortaliser vos instants précieux.</p>
-                <p>Que ce soit pour sublimer une cérémonie de mariage, apporter une touche classique et raffinée à un événement d'entreprise, ou créer une ambiance chaleureuse lors d'une fête privée, je m'adapte à vos envies pour vous offrir une prestation sur-mesure.</p>
-                <p class="font-script text-gold" style="font-size: 2.5rem; margin-top: 1rem;">Augustine</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="prestations-section" id="prestations">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="font-script">Mes services</span>
-                Prestations
-            </h2>
-            <div class="cards-grid">
-                <div class="service-card">
-                    <h3>Mariages</h3>
-                    <p>De l'entrée émouvante de la cérémonie jusqu'au vin d'honneur festif, la flûte traversière accompagne chaque étape de votre union pour la rendre unique.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Événements Privés</h3>
-                    <p>Anniversaires, baptêmes, ou réceptions intimistes. Apportez une note délicate et personnalisée à vos célébrations en famille ou entre amis.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Corporate</h3>
-                    <p>Inaugurations, dîners de gala, séminaires. Une ambiance musicale élégante et discrète pour valoriser l'image de votre entreprise.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="repertoire-section" id="repertoire">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="font-script">Extraits musicaux</span>
-                Exemple de Répertoire
-            </h2>
-            <div class="repertoire-list">
-                <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Classique <span>Élégance intemporelle</span>
-                    </div>
-                    <div class="repertoire-details">
-                        J.S. Bach (Ave Maria, Badinerie) • W.A. Mozart (Concerto en Sol majeur) • C. Debussy (Syrinx) • G. Fauré (Sicilienne, Pavane)
-                    </div>
-                </div>
-                <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Musique de Film <span>Émotions cinématographiques</span>
-                    </div>
-                    <div class="repertoire-details">
-                        Ennio Morricone (Gabriel's Oboe, Cinema Paradiso) • Hans Zimmer (Gladiator, Interstellar) • Yann Tiersen (Amélie Poulain)
-                    </div>
-                </div>
-                <div class="repertoire-item">
-                    <div class="repertoire-category">
-                        Pop & Variété <span>Touches modernes</span>
-                    </div>
-                    <div class="repertoire-details">
-                        Ed Sheeran (Perfect) • John Legend (All of Me) • Coldplay (Viva La Vida) • Christina Perri (A Thousand Years)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery-section" id="galerie">
-        <div class="gallery-wrapper">
-        <div class="gallery-title">
-            <span class="font-script">Souvenirs</span>
-            <h2>Événements Passés</h2>
-        </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cérémonie de Mariage">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Réception élégante">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Concert en plein air">
-            </div>
-            <div class="gallery-item">
-                <div style="width: 100%; height: 100%; background: var(--c-beige); display:flex; align-items:center; justify-content:center; text-align:center; padding: 2rem;">
-                    <h3 style="color: var(--c-taupe); font-size: 2rem; font-style:italic; font-family: 'Cormorant Garamond', serif;">Et bientôt<br>le vôtre...</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="contact-arch">
-                <h2 class="section-title" style="margin-bottom: 2.5rem;">
-                    <span class="font-script">Rencontrons-nous</span>
-                    Contact
-                </h2>
+        audioToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const audioId = this.getAttribute('data-audio');
+                const audioEl = document.getElementById(audioId);
                 
-                <form class="contact-form" id="contactForm">
-                    <!-- Ligne 1 : Nom et Email -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="contact-nom" placeholder="Votre nom" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="contact-email" placeholder="Votre Email" required>
-                        </div>
-                    </div>
-                    
-                    <!-- Ligne 2 : Date et Localisation -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <!-- Le champ type="date" affiche directement le Date Picker -->
-                            <input type="date" id="contact-date" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="contact-loc" placeholder="Lieu de l'événement" required>
-                        </div>
-                    </div>
-                    
-                    <!-- Ligne 3 : Pleine largeur -->
-                    <div class="form-group">
-                        <input type="text" id="contact-event" placeholder="Type d'événement (Mariage, Cocktail...)">
-                    </div>
-                    
-                    <!-- Ligne 4 : Message -->
-                    <div class="form-group">
-                        <textarea id="contact-message" placeholder="Votre message ou vos envies musicales..." rows="4" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Envoyer la demande</button>
-                </form>
+                const iconPlay = this.querySelector('.icon-play');
+                const iconPause = this.querySelector('.icon-pause');
 
-                <div class="contact-direct">
-                    Ou directement par email : <br><a href="mailto:augustine.flute@gmail.com">augustine.flute@gmail.com</a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-bottom">
-            <span>© 2026 Augustine Lejeune. Tous droits réservés.</span>
-            <div class="footer-legal">
-                <a href="#">Mentions légales</a>
-                <a href="#">CGV</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts: GSAP & Lenis -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
-
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Smooth Scroll Setup (Lenis)
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
-        });
-
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000) });
-        gsap.ticker.lagSmoothing(0);
-
-        // --- Animations & Logo dynamique fluide ---
-        const header = document.getElementById('main-header');
-        const logo = document.getElementById('logo');
-
-        let logoRaf = null;
-        function updateIdentity() {
-            if (logoRaf) return;
-            logoRaf = requestAnimationFrame(() => {
-                logoRaf = null;
-
-                const scrollMax = window.innerHeight * 0.55;
-                const progress = Math.min(window.scrollY / scrollMax, 1);
-                
-                const ease = progress < 0.5 
-                    ? 4 * progress * progress * progress 
-                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-                const isMobile = window.innerWidth <= 900;
-                
-                const startSize = isMobile 
-                    ? Math.min(window.innerWidth * 0.16, 75) 
-                    : Math.min(window.innerWidth * 0.09, 130);
-                const endSize = isMobile ? 26 : 34;
-
-                const startTop = window.innerHeight * 0.42; 
-                
-                const finalHeaderHeight = isMobile ? 66 : 70;
-                const opticalTweak = isMobile ? -16 : -22; 
-                const headerCenter = (finalHeaderHeight / 2) + opticalTweak;
-                
-                const currentTop = startTop + (headerCenter - startTop) * ease;
-                const currentSize = startSize + (endSize - startSize) * ease;
-
-                // Application des styles
-                logo.style.top = `${currentTop}px`;
-                logo.style.fontSize = `${currentSize}px`;
-                
-                // Etat du header
-                header.classList.toggle('is-scrolled', window.scrollY > 50);
-            });
-        }
-
-        updateIdentity();
-        window.addEventListener('scroll', updateIdentity, { passive: true });
-        window.addEventListener('resize', updateIdentity);
-
-        // Menu mobile (Burger)
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuToggle.addEventListener('click', () => {
-            const open = menuToggle.classList.toggle('open');
-            mobileMenu.classList.toggle('open', open);
-            
-            document.body.classList.toggle('menu-open', open);
-            
-            menuToggle.setAttribute('aria-expanded', String(open));
-            mobileMenu.setAttribute('aria-hidden', String(!open));
-            document.body.style.overflow = open ? 'hidden' : '';
-        });
-
-        // Fermeture propre au clic sur un lien du menu
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('open');
-                mobileMenu.classList.remove('open');
-                document.body.classList.remove('menu-open');
-                
-                menuToggle.setAttribute('aria-expanded', 'false');
-                mobileMenu.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Hero Parallax GSAP
-        gsap.to("#arch-bg", {
-            y: 80,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-        gsap.to("#arch-outline", {
-            y: 40,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-        
-        // Le texte du hero descend (parallax) et fade out
-        gsap.to(".hero-content", {
-            y: 80, 
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top",
-                end: "35% top",
-                scrub: true
-            }
-        });
-
-        // Presentation Anim
-        gsap.from("#img-anim", {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            scrollTrigger: {
-                trigger: "#presentation",
-                start: "top 70%"
-            }
-        });
-
-        gsap.from(".service-card", {
-            y: 10,
-            opacity: 0,
-            duration: 1, 
-            stagger: 0.2, 
-            ease: "power2.out", 
-            scrollTrigger: {
-                trigger: "#prestations",
-                start: "top 75%"
-            }
-        });
-        
-        // Gallery horizontale (Desktop)
-        const galleryWrapper = document.querySelector('.gallery-wrapper');
-        let galleryScroll;
-
-        function setupGallery() {
-            if (galleryScroll) {
-                galleryScroll.kill();
-                galleryScroll = null;
-            }
-
-            const existing = ScrollTrigger.getById('gallery-scroll');
-            if (existing) existing.kill();
-
-            if (window.innerWidth > 10) {
-                galleryScroll = gsap.to(galleryWrapper, {
-                    x: () => -(galleryWrapper.scrollWidth - window.innerWidth),
-                    ease: 'none',
-                    scrollTrigger: {
-                        id: 'gallery-scroll',
-                        trigger: '#galerie',
-                        pin: true,
-                        scrub: 1.15,
-                        end: () => '+=' + Math.max(900, galleryWrapper.scrollWidth)
+                // Si on clique sur Play
+                if (audioEl.paused) {
+                    // Mettre en pause la musique précédente s'il y en a une
+                    if (currentAudio && currentAudio !== audioEl) {
+                        currentAudio.pause();
+                        currentToggle.querySelector('.icon-pause').style.display = 'none';
+                        currentToggle.querySelector('.icon-play').style.display = 'block';
+                        currentToggle.classList.remove('playing');
                     }
-                });
-            } else {
-                gsap.set(galleryWrapper, { x: 0 });
-            }
-        }
-        setupGallery();
-
-        window.addEventListener('resize', () => {
-            ScrollTrigger.refresh();
-            setupGallery();
-        });
-
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche le rechargement de la page
-
-            // Récupération des valeurs
-            const nom = document.getElementById('contact-nom').value;
-            const email = document.getElementById('contact-email').value;
-            let date = document.getElementById('contact-date').value;
-            const localisation = document.getElementById('contact-loc').value; // NOUVEAU
-            const event = document.getElementById('contact-event').value;
-            const message = document.getElementById('contact-message').value;
-
-            // Transformation de la date (AAAA-MM-JJ en JJ/MM/AAAA)
-            if (date && date.includes('-')) {
-                const parts = date.split('-');
-                date = `${parts[2]}/${parts[1]}/${parts[0]}`;
-            }
-
-            // Construction de l'email
-            const destinataire = "Augustine Lejeune <augustine.flute@gmail.com>";
-            
-            // Le sujet
-            const sujet = encodeURIComponent(`Demande de prestation : ${event}, ${date}, ${localisation} - ${nom}`);
-            
-            // Le corps du message formaté
-            const corpsMessage = encodeURIComponent(`${message}\n\n ${nom}`);
-
-            // Ouverture du client mail
-            window.location.href = `mailto:${destinataire}?subject=${sujet}&body=${corpsMessage}`;
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault(); // Empêche le saut brutal par défaut
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Utilisation de Lenis pour scroller jusqu'à l'élément
-                    lenis.scrollTo(targetElement, {
-                        offset: -80, // Laisse un petit espace sous le header (ajustable)
-                        duration: 1.2, // Durée de l'animation
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // Easing doux
-                    });
+                    
+                    audioEl.play();
+                    iconPlay.style.display = 'none';
+                    iconPause.style.display = 'block';
+                    this.classList.add('playing');
+                    
+                    currentAudio = audioEl;
+                    currentToggle = this;
+                } 
+                // Si on clique sur Pause
+                else {
+                    audioEl.pause();
+                    iconPlay.style.display = 'block';
+                    iconPause.style.display = 'none';
+                    this.classList.remove('playing');
+                    
+                    currentAudio = null;
+                    currentToggle = null;
                 }
             });
         });
